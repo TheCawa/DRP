@@ -18,6 +18,7 @@ namespace drp {
 #pragma pack(push, 1)
 struct Header {
     uint16_t message_id;
+    uint8_t  chunk_index;
     uint8_t  flags;         // 0 = DATA, 1 = ACK
     uint8_t  payload_size; 
     uint32_t reserved;     
@@ -29,12 +30,10 @@ public:
     RatSender(const char* target_ip, int target_port);
     ~RatSender();
 
-    // Исправлено: добавили параметр manual_id для поддержки твоей идеи с чанками
     void start(uint16_t manual_id = 0); 
     void stop();
     void set_payload(const std::vector<uint8_t>& data);
-    
-    // Исправлено: геттер теперь официально в интерфейсе
+
     bool isRunning() const { return running; }
 
 private:
@@ -60,8 +59,6 @@ private:
     SOCKET sock;      
     uint16_t last_msg_id;
 };
-
-// ------------------------------
 
 bool init_network();
 void cleanup_network();

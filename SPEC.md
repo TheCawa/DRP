@@ -81,25 +81,19 @@ A message is considered fully delivered when all `total_chunks` for a given `mes
 Minimum header size: **4 bytes** (DATA) / **4 bytes** (ACK).  
 Chunk metadata is embedded in the payload for DATA packets.
 
-### 4.1 Base header
+#### 4.1 Base header
 
 | Field       | Size   | Description                                  |
 |-------------|--------|----------------------------------------------|
-| message_id  | 16 bit | Unique message identifier (1–65535)          |
-| chunk_index | 8 bit  | Reserved in base header; see payload layout  |
+| message_id  | 16 bit | Unique message identifier (network byte order) |
+| chunk_index | 8 bit  | Chunk index (0-based) for multi-chunk messages |
 | flags       | 8 bit  | `0x00` = DATA, `0x01` = ACK                  |
+| payload_size| 8 bit  | Length of payload (DATA only)                |
+| reserved    | 32 bit | Reserved for future use (set to 0)           |
 
-### 4.2 DATA payload layout
+Total header size: **9 bytes**
 
-The first 4 bytes of the payload carry chunk routing metadata:
-
-| Offset | Size   | Description                        |
-|--------|--------|------------------------------------|
-| 0–1    | 16 bit | `chunk_index` (big-endian)         |
-| 2–3    | 16 bit | `total_chunks` (big-endian)        |
-| 4+     | N bytes| Actual data                        |
-
-### 4.3 ACK packet
+### 4.2 ACK packet
 
 ACK packets contain only the base header (4 bytes) with `flags = 0x01` and the `message_id` of the chunk being acknowledged. No payload.
 
