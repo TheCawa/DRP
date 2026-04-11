@@ -1,0 +1,11 @@
+﻿build/
+bin/
+*.exe
+*.o
+*.obj
+*.pdb
+*.ilk
+.vscode/
+.vs/
+*.user
+output.jpg
