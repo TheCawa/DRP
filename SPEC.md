@@ -88,7 +88,7 @@ Chunk metadata is embedded in the payload for DATA packets.
 | message_id  | 16 bit | Unique message identifier (network byte order) |
 | chunk_index | 8 bit  | Chunk index (0-based) for multi-chunk messages |
 | flags       | 8 bit  | `0x00` = DATA, `0x01` = ACK                  |
-| payload_size| 8 bit  | Length of payload (DATA only)                |
+| payload_size| 16 bit | Length of payload (DATA only)                |
 | reserved    | 32 bit | Reserved for future use (set to 0)           |
 
 Total header size: **9 bytes**

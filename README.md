@@ -30,7 +30,7 @@ A configurable **sliding window** (default: 4 parallel senders) allows multiple 
 
 ## Benchmarks
 
-Tested on localhost with a bidirectional chaos proxy (random packet drop):
+Tested on localhost with a bidirectional simple chaos proxy (random packet drop):
 
 | Packet Loss | File Size | Time   | Throughput |
 |-------------|-----------|--------|------------|
